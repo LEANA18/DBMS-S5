@@ -152,5 +152,24 @@ mysql> call test1(10000);
 
 Query OK, 0 rows affected (0.00 sec)
 
+8)
+mysql> DELIMITER //
+mysql> create procedure BonusCal (IN empid int)
+    -> begin
+    -> declare sal int;
+    -> select salary from EMPLOYEES where emp_id = empid into sal;
+    -> if (sal<=70000) then
+    -> select (0.2*sal) as Bonus ;
+    -> elseif (sal>70000 and sal<=85000)
+    -> then select (0.15*sal) as Bonus;
+    -> elseif (sal>85000 and sal<=100000)
+    -> then select (0.1*sal) as Bonus;
+    -> elseif sal>100000
+    -> then select (0.05*sal) as Bonus;
+    -> end if;
+    -> end //
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> call BonusCal(1001);
 
 
